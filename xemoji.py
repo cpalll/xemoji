@@ -8,7 +8,7 @@ pd.set_option('display.width', 1000)        # Adjust display width
 pd.set_option('display.max_colwidth', 50)   # Limit column width
 
 tweets = pd.read_csv('twitter_sentiment.csv', encoding='latin-1')
-tweets.columns = ['sentiment', 'id', 'date', 'flag', 'user', 'text']  # Rename columns
+tweets.columns = ['text', 'sentiment']  # Rename columns
 
 # Add index column
 tweets['index'] = range(0, len(tweets))
@@ -16,5 +16,7 @@ tweets.set_index('index')
 # Remove all columns except for sentiment and text
 tweets = tweets[['index', 'sentiment', 'text']]
 
+tweets['sentiment_emoji'] = tweets['sentiment'].map({-1: 😠, 0: 😐, 1: 😀})
 
 print(tweets.head())
+
