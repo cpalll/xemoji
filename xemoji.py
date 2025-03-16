@@ -37,6 +37,20 @@ tweets['text'] = tweets['text'].apply(lambda x: ' '.join([word for word in x.spl
 #Tokenize text
 tweets['text'] = tweets['text'].apply(word_tokenize)
 
+#Convert text into numerical features for TF-IDF
+# Use TF-IDF vectorizer
+tweets['text'] = tweets['text'].apply(lambda x: ' '.join(x))
+vectorizer = TfidfVectorizer(max_features=5000)
+X = vectorizer.fit_transform(tweets['text'])
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X, tweets['sentiment_emoji'],
+                                                    test_size=0.2, random_state=42)
+
+# Save the vectorizer and processed data
+joblib.dump(vectorizer, 'tfidf_vectorizer.pkl')
+joblib.dump((X_train, X_test, y_train, y_test), 'processed_data.pkl')
+
 
 print(tweets.head())
 
