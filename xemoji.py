@@ -34,6 +34,9 @@ tweets['text'] = tweets['text'].apply(lambda x: re.sub(r'[^\w\s]', '', x))
 
 stop_words = set(stopwords.words('english'))
 tweets['text'] = tweets['text'].apply(lambda x: ' '.join([word for word in x.split() if word not in stop_words]))
+#Tokenize text
+tweets['text'] = tweets['text'].apply(word_tokenize)
+
 
 print(tweets.head())
 
