@@ -1,19 +1,13 @@
 import joblib
 
-# Load the trained model
+# Load the vectorizer and model
+vectorizer = joblib.load('tfidf_vectorizer.pkl')
 model = joblib.load('logistic_regression_model.pkl')
 
 
 def preprocess_text(text: str) -> str:
     # Preprocess the text
     text = text.lower()
-    # Remove punctuation
-    text = lambda x: re.sub(r'[^\w\s]', '', x)
-    # Remove stopwords
-    stop_words = set(stopwords.words('english'))
-    text = text.apply(lambda x: ' '.join([word for word in x.split() if word not in stop_words]))
-    # Tokenize text
-    text = text.apply(word_tokenize)
 
     return text
 
